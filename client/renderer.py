@@ -107,12 +107,12 @@ class Renderer:
 
     def draw_menu(self) -> None:
         self._draw_text(self.big, "ASTEROIDS MULTIPLAYER", self.config.WIDTH // 2 - 280, 200, self.config.P1_COLOR)
-        self._draw_text(self.font, "P1: Arrows + Space | P2: WASD + V", self.config.WIDTH // 2 - 180, 350)
-        self._draw_text(self.font, "Press any key to START", self.config.WIDTH // 2 - 130, 400, self.config.P2_COLOR)
+        self._draw_text(self.font, "XBOX CONTROLLERS: LT to Thrust | RT to Shoot", self.config.WIDTH // 2 - 220, 350)
+        self._draw_text(self.font, "Press any button to START", self.config.WIDTH // 2 - 130, 400, self.config.P2_COLOR)
 
     def draw_game_over(self) -> None:
         self._draw_text(self.big, "GAME OVER", self.config.WIDTH // 2 - 170, 260, (255, 50, 50))
-        self._draw_text(self.font, "Press any key to Restart", self.config.WIDTH // 2 - 140, 340)
+        self._draw_text(self.font, "Press any button to Restart", self.config.WIDTH // 2 - 140, 340)
 
     def _draw_text(self, font: pg.font.Font, text: str, x: int, y: int, color = None) -> None:
         if color is None: color = self.config.WHITE

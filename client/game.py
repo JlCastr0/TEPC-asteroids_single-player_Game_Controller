@@ -65,7 +65,7 @@ class Game:
                     self._quit()
 
             if self.scene == SceneState.MENU:
-                if event.type == pg.KEYDOWN:
+                if event.type == pg.KEYDOWN or event.type == pg.JOYBUTTONDOWN:
                     self.scene = SceneState.PLAY
                 continue
 
@@ -80,7 +80,7 @@ class Game:
                 continue
 
             if self.scene == SceneState.GAME_OVER:
-                if event.type == pg.KEYDOWN:
+                if event.type == pg.KEYDOWN or event.type == pg.JOYBUTTONDOWN:
                     self.world.reset()
                     self.scene = SceneState.PLAY
                 continue
