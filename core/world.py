@@ -279,7 +279,7 @@ class World:
         ship.angle = -90.0
         ship.invuln = float(C.SAFE_SPAWN_TIME)
         self.events.append("ship_explosion")
-        if all(v <= 0 for v in self.lives.values()): self.game_over = True
+        if any(v <= 0 for v in self.lives.values()): self.game_over = True
 
     def _apply_powerup(self, powerup: PowerUp, ship: Ship):
         if powerup.type == "ONE_UP": self.lives[ship.player_id] += 1
@@ -290,4 +290,4 @@ class World:
     def _ship_die_instant(self, ship: Ship) -> None:
         self.lives[ship.player_id] = 0
         ship.vel.xy = (0, 0)
-        if all(v <= 0 for v in self.lives.values()): self.game_over = True
+        if any(v <= 0 for v in self.lives.values()): self.game_over = True

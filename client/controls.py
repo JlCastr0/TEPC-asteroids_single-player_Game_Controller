@@ -82,24 +82,29 @@ class InputMapper:
         cmds[C.P2_ID] = p2_cmd
 
         # Override with Joystick if available
-        for i, j in enumerate(self._joysticks):
+        for i, j in enumerate(self._joysticks[:2]):
             pid = C.LOCAL_PLAYER_ID if i == 0 else C.P2_ID
-            if pid not in cmds: return cmds # Only 2 players supported
             
-            # Stick X for rotation
+            # Xbox Controller Mapping (Windows/XInput)
+            # Axis 0: Left Stick X (Rotation)
+            # Axis 4: Left Trigger (Thrust/Run)
+            # Axis 5: Right Trigger (Shoot)
+            # Button 3: Y Button (Shield)
+            
             axis_x = j.get_axis(0)
-            # A for thrust
-            thrust = j.get_button(0)
-            # RT for shield (Axis 5 or 4 usually)
-            shield = j.get_button(3) # Y for shield as fallback if RT is tricky
+            # Triggers often range from -1.0 to 1.0 or 0.0 to 1.0. 
+            # Threshold 0.1 handles both.
+            thrust_joy = j.get_axis(4) > 0.1
+            shoot_joy = j.get_axis(5) > 0.1 or self._shoot_pressed[pid]
+            shield_joy = j.get_button(3)
             
             cmds[pid] = PlayerCommand(
                 rotate_left=axis_x < -0.5,
                 rotate_right=axis_x > 0.5,
-                thrust=thrust,
-                shoot=self._shoot_pressed[pid],
+                thrust=thrust_joy,
+                shoot=shoot_joy,
                 hyperspace=self._hyper_pressed[pid],
-                shield=shield,
+                shield=shield_joy,
                 activate_power=self._power_pressed[pid]
             )
 

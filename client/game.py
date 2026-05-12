@@ -40,6 +40,7 @@ class Game:
 
         self.sounds = load_sounds(C.SOUND_PATH)
         self.audio = AudioManager(self.sounds)
+        self.p2_active_negative = False
 
     def run(self) -> None:
         while self.running:
